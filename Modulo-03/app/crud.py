@@ -7,12 +7,15 @@ def get_products(db: Session):
 def get_product_by_id(db: Session, product_id: int):
     return db.query(models.Product).filter(models.Product.id == product_id).first()
 
+def get_product_by_name(db: Session, name: str):
+    return db.query(models.Product).filter(models.Product.name == name).first()
+
 def create_product(db: Session, product: schemas.ProductCreate):
     db_product = models.Product(
         name=product.name, 
         price=product.price, 
         stock=product.stock,
-        category=product.category # <-- INCLUIR EN CREACIÓN
+        category=product.category
     )
     db.add(db_product)
     db.commit()
